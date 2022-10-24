@@ -3,146 +3,194 @@ using System.Security.Policy;
 namespace Oef1
 {
     public partial class Form1 : Form
-        {
+    {
+        public delegate void Toon(object rij);
 
-        public delegate void Tonen(object rij); 
+
+        FouteRij<TeDoen> rij = new FouteRij<TeDoen>();
+        List<System.Timers.Timer> timerList = new List<System.Timers.Timer>();
+        List<DateTime> Dateslijst = new List<DateTime>();
+        List<TeDoen> Datetaak = new List<TeDoen>();
+        int teller = 0;
+        int index = 0;
         public Form1()
         {
             InitializeComponent();
-            inputDate.Visible = false;
-        }
-        private List<System.Timers.Timer> LijstVanTimers = new List<System.Timers.Timer>();
-        private Rij<TeDoen> rij = new Rij<TeDoen>();
-        private List<TeDoen> lijstvanObjecten = new List<TeDoen>();
-        private List<DateTime> lijstDatum = new List<DateTime>();
-          public int Wacht()
-        {
-            TimeSpan wachttijd = inputDate.Value - DateTime.Now;
-            System.Threading.Thread.Sleep((int)wachttijd.TotalMinutes);
-            return (int)wachttijd.TotalMilliseconds;
+
         }
 
-        private void inputTitle_TextChanged(object sender, EventArgs e)
+
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void OpslaanTaak_Click(object sender, EventArgs e)
+        private void VoegToe_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
+            if (checkBox.Checked)
             {
-                if (inputDate.Value > DateTime.Now)
+                if (dateTimePicker1.Value > DateTime.Now)
                 {
 
-                    lijstvanObjecten.Add(new TeDoen(inputDate.Value, inputTitle.Text, textBox1.Lines));
-                    lijstDatum.Add(inputDate.Value);
-                    inputTitle.Text = null;
-                    textBox1.Text = null;
-
+                    Datetaak.Add(new TeDoen(titel.Text, info.Lines, dateTimePicker1.Value));
+                    Dateslijst.Add(dateTimePicker1.Value);
+                    Timer();
+                    titel.Text = "";
+                    info.Text = "";
                 }
                 else
                 {
-                    MessageBox.Show("! begin opnieuw");
+                    MessageBox.Show("de datum moet verplicht in het toekomst zijn, doe opnieuw.");
                 }
+
             }
             else
             {
-                rij.InDeRij(new TeDoen(inputTitle.Text, textBox1.Lines));
-                inputTitle.Text = null;
-                textBox1.Text = null;
-
+                TeDoen tedoen = new TeDoen(titel.Text, info.Lines);
+                rij.Voegtoe(tedoen);
+                titel.Text = "";
+                info.Text = "";
             }
 
-            
-            inputDate.Value = DateTime.Now;
-
         }
-        public void StartTimer()
+        public int Wacht()
+        {
+            TimeSpan tijd = dateTimePicker1.Value - DateTime.Now;
+            System.Threading.Thread.Sleep((int)tijd.TotalMinutes);
+            return (int)tijd.TotalMilliseconds;
+        }
+        public void Timer()
         {
             System.Timers.Timer Localtimer = new System.Timers.Timer(Wacht());
-            Localtimer.Elapsed += label5_Tick;
+            Localtimer.Elapsed += TextBox;
             Localtimer.AutoReset = false;
             Localtimer.Start();
-            LijstVanTimers.Add(Localtimer);
+            timerList.Add(Localtimer);
         }
-
-        private void label5_Tick(object sender, EventArgs e)
+        private void TextBox(object sender, EventArgs e)
         {
-            foreach (DateTime date in lijstDatum)
+            foreach (DateTime date in Dateslijst)
             {
                 if (date <= DateTime.Now)
                 {
-                    rij.WhenShow(lijstvanObjecten[lijstDatum.IndexOf(date)]);
+                    rij.Show(Datetaak[Dateslijst.IndexOf(date)]);
 
-                    lijstvanObjecten.RemoveAt(lijstDatum.IndexOf(date));
-                    lijstDatum.RemoveAt(lijstDatum.IndexOf(date));
+                    Datetaak.RemoveAt(Dateslijst.IndexOf(date));
+                    Dateslijst.RemoveAt(Dateslijst.IndexOf(date));
 
                 }
 
             }
         }
 
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void Volgendetaak_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
+
+            List<TeDoen> list = rij.Toon();
+            titel.Text = list.ElementAt(teller).Titel;
+            info.Lines = list.ElementAt(teller).Informatie;
+            index = list.IndexOf(list.ElementAt(teller));
+            if (list.ElementAt(teller).Tijdstip != null)
             {
-                inputDate.Visible = true;
+
+                dateTimePicker1.Value = (DateTime)list.ElementAt(teller).Tijdstip;
+                checkBox.Checked = true;
             }
             else
             {
-                inputDate.Visible = false;
+
+                dateTimePicker1.Value = DateTime.Now;
+                checkBox.Checked = false;
             }
 
-        }
 
-        private void volgendeTaak_Click(object sender, EventArgs e)
+            teller++;
+            if (teller == list.Count)
+            {
+                teller = 0;
+            }
+
+        
+    }
+
+        private void verwijder_Click(object sender, EventArgs e)
         {
-            rij.Toon();
+            rij.Verwijder(index);
+            teller = 0;
+            titel.Text = "";
+            info.Text = "";
+
         }
 
         private void ZetAchteraan_Click(object sender, EventArgs e)
         {
-            rij.ZetAchteraan();
+            rij.ZitAchter(index);
+            teller = 0;
+            titel.Text = "";
+            info.Text = "";
+
         }
 
-        private void verwijderTaak_Click(object sender, EventArgs e)
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
-            rij.UitDeRij();
+
+            dateTimePicker1.Visible = !dateTimePicker1.Visible;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void show_form(object lijst)
         {
-            if (button1.Text == "ON")
+
+            info.Text = lijst.ToString();
+
+        }
+
+
+        private void show_MessageBox(object lijst)
+        {
+
+            MessageBox.Show(lijst.ToString());
+
+        }
+
+
+
+
+        private void ToonForm_Click(object sender, EventArgs e)
+        {
+            if (ToonForm.BackColor == Color.Red)
             {
-                button1.Text = "OFF";
-                button1.BackColor = Color.Red;
-                inputInhoud.Text = null;
-                rij.tonen -= new Tonen()
+                ToonForm.BackColor = Color.Green;
+                rij.tonen += new Toon(show_form);
             }
             else
             {
-                button1.Text = "ON";
-                button1.BackColor = Color.Green;
-                rij.tonen += new Tonen();
+                ToonForm.BackColor = Color.Red;
+                rij.tonen -= new Toon(show_form);
             }
 
         }
-        private void button2_Click(object sender, EventArgs e)
+
+        private void toonMessagebox_Click(object sender, EventArgs e)
         {
+            if (toonMessagebox.BackColor == Color.Red)
             {
-                button2.Text = "OFF";
-                button2.BackColor = Color.Red;
-                rij.tonen -= new Tonen();
+                toonMessagebox.BackColor = Color.Green;
+                rij.tonen += new Toon(show_MessageBox);
             }
             else
             {
-                button2.Text = "ON";
-                button2.BackColor = Color.Green;
-                rij.tonen += new Tonen();
+                toonMessagebox.BackColor = Color.Red;
+                rij.tonen -= new Toon(show_MessageBox);
             }
-
-
         }
     }
+
+
     }
+
+
+
+    
+    
+    
 

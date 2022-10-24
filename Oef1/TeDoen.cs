@@ -8,66 +8,54 @@ namespace Oef1
 {
     internal class TeDoen
     {
-        private int Id { get; set; }
-        private static int teller;
-        private DateTime? Tijdsstip { get; set; }
-        private string Title { get; set; }
-        private string[] Informatie;
-
-
-        public TeDoen(DateTime tijdstip, string title, string[] informatie)
+       
+        delegate void ToonMij(string titel, string inhoud, Boolean dringend);
+        public int id
         {
-            teller++;
+            get { _volgnummer++; return _volgnummer; }
+            set { _volgnummer = value; }
+        }
+        private int _volgnummer = 0;
+        public DateTime? Tijdstip = null;
+        public string Titel { get; set; }
+        public string[] Informatie { get; set; }
+        public TeDoen()
+        {
 
-            Id = teller;
-
-            if (tijdstip >= DateTime.Now)
-            {
-                Tijdsstip = tijdstip;
-
-            }
-            else
-            {
-                Tijdsstip = null;
-            }
-
-            Title = title;
+        }
+        public TeDoen(string titel, string[] informatie)
+        {
+            Titel = titel;
             Informatie = informatie;
-
         }
-        public TeDoen(string title, string[] beschrijving)
+        public TeDoen(string titel, string[] informatie, DateTime tijdstip)
         {
-            teller++;
-            Id = teller;
-            Title = title;
-            Informatie = beschrijving;
-
+            Titel = titel;
+            Tijdstip = tijdstip;
+            Informatie = informatie;
         }
-
         public override string ToString()
 
         {
-            string result = "";
+            string text = "";
 
-            foreach (string s in Informatie)
+            foreach (string line in Informatie)
             {
-                result += s.ToString() + "\n";
+                text += line.ToString() + "";
 
             }
 
-            if (Tijdsstip == null)
+            if (Tijdstip == null)
             {
-                return "id" + Id + " title : " + Title + " informatie : " + result;
+                return "id" + id + " title : " + Titel + " informatie : " + text;
             }
             else
             {
-                return "id" + Id + " tijdstip: " + Tijdsstip + " title : " + Title + " informatie : " + result;
+                return "id" + id + "  tijdstip: " + Tijdstip + "title : " + Titel + " informatie : " + text;
             }
 
 
         }
-
-
 
     }
 }
