@@ -15,8 +15,9 @@ namespace Oef1
 
         List<System.Timers.Timer> timerList = new List<System.Timers.Timer>();
 
-        List<DateTime> Dateslijst = new List<DateTime>();
 
+
+        List<DateTime> Dateslijst = new List<DateTime>();
         List<TeDoen> Datetaak = new List<TeDoen>();
 
        
@@ -56,8 +57,8 @@ namespace Oef1
             {
                 TeDoen tedoen = new TeDoen(titel.Text, info.Lines);
                 rij.Voegtoe(tedoen);
-                titel.Text = "";
-                info.Text = "";
+                titel.Text = " ";
+                info.Text = " ";
             }
 
         }
@@ -67,6 +68,8 @@ namespace Oef1
             System.Threading.Thread.Sleep((int)tijd.TotalMinutes);
             return (int)tijd.TotalMilliseconds;
         }
+
+
         public void Timer()
         {
             System.Timers.Timer Localtimer = new System.Timers.Timer(Wacht());
@@ -75,6 +78,10 @@ namespace Oef1
             Localtimer.Start();
             timerList.Add(Localtimer);
         }
+
+
+
+
         private void TextBox(object sender, EventArgs e)
         {
             foreach (DateTime date in Dateslijst)
@@ -90,6 +97,9 @@ namespace Oef1
 
             }
         }
+
+
+
 
         private void Volgendetaak_Click(object sender, EventArgs e)
         {
