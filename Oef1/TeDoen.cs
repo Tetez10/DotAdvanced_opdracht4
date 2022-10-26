@@ -9,7 +9,7 @@ namespace Oef1
     internal class TeDoen
     {
        
-        delegate void ToonMij(string titel, string inhoud, Boolean dringend);
+        delegate void Showme(string titel, string inhoud, Boolean dringend);
         public int id
         {
             get { _volgnummer++; return _volgnummer; }
@@ -23,11 +23,8 @@ namespace Oef1
         public string Titel { get; set; }
 
         public string[] Informatie { get; set; }
-
-        public TeDoen()
-        {
-
-        }
+        
+        
         public TeDoen(string titel, string[] informatie)
         {
             Titel = titel;
@@ -46,7 +43,7 @@ namespace Oef1
 
             foreach (string line in Informatie)
             {
-                text += line.ToString() + "";
+                text += line.ToString() + "   ";
 
             }
 
@@ -56,7 +53,7 @@ namespace Oef1
             }
             else
             {
-                return "id is " + id + "  tijdstip is : " + Tijdstip + "title is  : " + Titel + " informatie : " + text;
+                return "id is : " + id + "  tijdstip is : " + Tijdstip + "title is  : " + Titel + " informatie : " + text;
             }
 
 

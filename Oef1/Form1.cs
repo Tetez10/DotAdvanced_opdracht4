@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Security.Policy;
 
 namespace Oef1
@@ -8,15 +9,14 @@ namespace Oef1
          int index = 0;
 
 
-        public delegate void Toon(object rij);
+        public delegate void Showme(object rij);
 
 
         FouteRij<TeDoen> rij = new FouteRij<TeDoen>();
-
         List<System.Timers.Timer> timerList = new List<System.Timers.Timer>();
 
 
-
+        // List time.
         List<DateTime> Dateslijst = new List<DateTime>();
         List<TeDoen> Datetaak = new List<TeDoen>();
 
@@ -62,13 +62,7 @@ namespace Oef1
             }
 
         }
-        public int Wacht()
-        {
-            TimeSpan tijd = dateTimePicker1.Value - DateTime.Now;
-            System.Threading.Thread.Sleep((int)tijd.TotalMinutes);
-            return (int)tijd.TotalMilliseconds;
-        }
-
+      
 
         public void Timer()
         {
@@ -104,28 +98,42 @@ namespace Oef1
         private void Volgendetaak_Click(object sender, EventArgs e)
         {
 
+
             List<TeDoen> list = rij.Toon();
+            
+             // if statement om error te vermijden als ik verwijder + ik op volgende druk.
+            if (list.Count != 0)
+            {
+
+            
             titel.Text = list.ElementAt(teller).Titel;
             info.Lines = list.ElementAt(teller).Informatie;
             index = list.IndexOf(list.ElementAt(teller));
-            if (list.ElementAt(teller).Tijdstip != null)
-            {
 
-                dateTimePicker1.Value = (DateTime)list.ElementAt(teller).Tijdstip;
-                checkBox.Checked = true;
-            }
-            else
-            {
-
-                dateTimePicker1.Value = DateTime.Now;
-                checkBox.Checked = false;
-            }
+           
 
 
-            teller++;
-            if (teller == list.Count)
-            {
-                teller = 0;
+
+
+                if (list.ElementAt(teller).Tijdstip != null)
+                {
+
+                    dateTimePicker1.Value = (DateTime)list.ElementAt(teller).Tijdstip;
+                    checkBox.Checked = true;
+                }
+                else
+                {
+
+                    dateTimePicker1.Value = DateTime.Now;
+                    checkBox.Checked = false;
+                }
+
+
+                teller++;
+                if (teller == list.Count)
+                {
+                    teller = 0;
+                }
             }
 
         
@@ -177,12 +185,12 @@ namespace Oef1
             if (ToonForm.BackColor == Color.Red)
             {
                 ToonForm.BackColor = Color.Green;
-                rij.tonen += new Toon(show_form);
+                rij.tonen += new Showme(show_form);
             }
             else
             {
                 ToonForm.BackColor = Color.Red;
-                rij.tonen -= new Toon(show_form);
+                rij.tonen -= new Showme(show_form);
             }
 
         }
@@ -192,12 +200,12 @@ namespace Oef1
             if (toonMessagebox.BackColor == Color.Red)
             {
                 toonMessagebox.BackColor = Color.Green;
-                rij.tonen += new Toon(show_MessageBox);
+                rij.tonen += new Showme(show_MessageBox);
             }
             else
             {
                 toonMessagebox.BackColor = Color.Red;
-                rij.tonen -= new Toon(show_MessageBox);
+                rij.tonen -= new Showme(show_MessageBox);
             }
         }
     }
