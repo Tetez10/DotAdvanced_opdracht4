@@ -46,6 +46,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.RijBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.BeschrijvingBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label5
@@ -176,7 +178,7 @@
             // VoegToe
             // 
             this.VoegToe.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.VoegToe.Location = new System.Drawing.Point(513, 681);
+            this.VoegToe.Location = new System.Drawing.Point(435, 647);
             this.VoegToe.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.VoegToe.Name = "VoegToe";
             this.VoegToe.Size = new System.Drawing.Size(117, 59);
@@ -225,7 +227,7 @@
             // 
             // RijBox
             // 
-            this.RijBox.Location = new System.Drawing.Point(147, 814);
+            this.RijBox.Location = new System.Drawing.Point(236, 760);
             this.RijBox.Name = "RijBox";
             this.RijBox.Size = new System.Drawing.Size(773, 27);
             this.RijBox.TabIndex = 47;
@@ -236,17 +238,39 @@
             this.label6.BackColor = System.Drawing.Color.MintCream;
             this.label6.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(19, 814);
+            this.label6.Location = new System.Drawing.Point(19, 762);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 25);
+            this.label6.Size = new System.Drawing.Size(102, 25);
             this.label6.TabIndex = 48;
-            this.label6.Text = "Rij";
+            this.label6.Text = "TaakTitel";
+            // 
+            // BeschrijvingBox
+            // 
+            this.BeschrijvingBox.Location = new System.Drawing.Point(236, 793);
+            this.BeschrijvingBox.Multiline = true;
+            this.BeschrijvingBox.Name = "BeschrijvingBox";
+            this.BeschrijvingBox.Size = new System.Drawing.Size(773, 74);
+            this.BeschrijvingBox.TabIndex = 49;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.MintCream;
+            this.label7.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label7.Location = new System.Drawing.Point(12, 842);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(185, 25);
+            this.label7.TabIndex = 50;
+            this.label7.Text = "Beschrijving taak";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1265, 891);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.BeschrijvingBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.RijBox);
             this.Controls.Add(this.textBox1);
@@ -294,5 +318,7 @@
         private TextBox textBox1;
         private TextBox RijBox;
         private Label label6;
+        private TextBox BeschrijvingBox;
+        private Label label7;
     }
 }

@@ -121,10 +121,10 @@ namespace Oef1
             if (list.Count != 0)
             {
 
-            
-            titel.Text = list.ElementAt(teller).Titel;
-            info.Lines = list.ElementAt(teller).Informatie;
-            index = list.IndexOf(list.ElementAt(teller));
+             // na elke switch van taak toon het in de balkjes
+             RijBox.Text = list.ElementAt(teller).Titel ;
+             BeschrijvingBox.Lines = list.ElementAt(teller).Informatie;
+             index = list.IndexOf(list.ElementAt(teller));
 
            
 
