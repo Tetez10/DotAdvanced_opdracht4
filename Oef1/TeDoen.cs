@@ -49,11 +49,11 @@ namespace Oef1
 
             if (Tijdstip == null)
             {
-                return "id is : " + id + " title is  : " + Titel + " informatie  : " + text;
+                return  id + ", : " + Titel  + text;
             }
             else
             {
-                return "id is : " + id + "  tijdstip is : " + Tijdstip + "title is  : " + Titel + " informatie : " + text;
+                return  id + "  ,   : " + Tijdstip + " ,  : " + Titel + "  ,  : " + text;
             }
 
 
