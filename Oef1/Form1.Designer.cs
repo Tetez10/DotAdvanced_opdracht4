@@ -246,7 +246,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1119, 891);
+            this.ClientSize = new System.Drawing.Size(1265, 891);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.RijBox);
             this.Controls.Add(this.textBox1);

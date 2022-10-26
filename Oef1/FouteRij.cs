@@ -12,7 +12,7 @@ namespace Oef1
     {
         private List<T> rij = new List<T>();
         private List<T> kopie = new List<T>();
-        public event Form1.Toon tonen;
+        public event Form1.Showme show;
         int teller = -1;
         public FouteRij()
         {
@@ -35,7 +35,6 @@ namespace Oef1
             }
 
 
-
         }
 
 
@@ -45,6 +44,7 @@ namespace Oef1
         }
         public void ZitAchter(int index)
         {
+            //lijst te doen gaar op de index gaan verwijderen.
             T teDoen = rij.ElementAt(index);
             rij.RemoveAt(index);
             rij.Add(teDoen);
@@ -66,6 +66,7 @@ namespace Oef1
         public void CopyList()
         {
             kopie.Clear();
+            //voor elke element in de rij die het copy gaat zien gaat die gaan kopieren naar de nieuwe list om te kopieren.
             foreach (T i in rij)
             {
                 kopie.Add(i);
@@ -74,10 +75,10 @@ namespace Oef1
         public void Show(object rij)
         {
 
-
-            if (tonen != null)
+            
+            if (show != null)
             {
-                tonen(rij);
+                show(rij);
 
             }
 

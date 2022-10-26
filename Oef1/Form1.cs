@@ -36,6 +36,9 @@ namespace Oef1
 
         private void VoegToe_Click(object sender, EventArgs e)
         {
+
+
+
             if (checkBox.Checked)
             {
                 if (dateTimePicker1.Value > DateTime.Now)
@@ -43,9 +46,12 @@ namespace Oef1
 
                     Datetaak.Add(new TeDoen(titel.Text, info.Lines, dateTimePicker1.Value));
                     Dateslijst.Add(dateTimePicker1.Value);
+
                     Timer();
                     titel.Text = "";
                     info.Text = "";
+
+                    //RijBox.Text = Datetaak.ToString();
                 }
                 else
                 {
@@ -73,6 +79,13 @@ namespace Oef1
             timerList.Add(Localtimer);
         }
 
+        public int Wacht()
+        {
+            TimeSpan tijd = dateTimePicker1.Value - DateTime.Now;
+            return (int)tijd.TotalMilliseconds;
+        }
+
+
 
 
 
@@ -83,8 +96,11 @@ namespace Oef1
                 if (date <= DateTime.Now)
                 {
                     rij.Show(Datetaak[Dateslijst.IndexOf(date)]);
-
+                    //first remove
                     Datetaak.RemoveAt(Dateslijst.IndexOf(date));
+
+
+                    //second remove
                     Dateslijst.RemoveAt(Dateslijst.IndexOf(date));
 
                 }
@@ -164,8 +180,8 @@ namespace Oef1
         }
         private void show_form(object lijst)
         {
-
-            info.Text = lijst.ToString();
+            // ik heb problemen met het voorschijnen van mijn taken in het juiste balk ik heb geen oplossing gevonden voor dit .. 
+            RijBox.Text = lijst.ToString();
 
         }
 
@@ -181,16 +197,19 @@ namespace Oef1
 
 
         private void ToonForm_Click(object sender, EventArgs e)
-        {
+        {         //default color
             if (ToonForm.BackColor == Color.Red)
             {
                 ToonForm.BackColor = Color.Green;
-                rij.tonen += new Showme(show_form);
+                // werkt niet
+                rij.show += new Showme(show_form);
+                
             }
             else
             {
                 ToonForm.BackColor = Color.Red;
-                rij.tonen -= new Showme(show_form);
+                rij.show -= new Showme(show_form);
+                
             }
 
         }
@@ -200,12 +219,16 @@ namespace Oef1
             if (toonMessagebox.BackColor == Color.Red)
             {
                 toonMessagebox.BackColor = Color.Green;
-                rij.tonen += new Showme(show_MessageBox);
+
+                rij.show += new Showme(show_MessageBox);
+
+                
             }
             else
             {
                 toonMessagebox.BackColor = Color.Red;
-                rij.tonen -= new Showme(show_MessageBox);
+
+                rij.show -= new Showme(show_MessageBox);
             }
         }
     }
