@@ -4,15 +4,22 @@ namespace Oef1
 {
     public partial class Form1 : Form
     {
+         int teller = 0;
+         int index = 0;
+
+
         public delegate void Toon(object rij);
 
 
         FouteRij<TeDoen> rij = new FouteRij<TeDoen>();
+
         List<System.Timers.Timer> timerList = new List<System.Timers.Timer>();
+
         List<DateTime> Dateslijst = new List<DateTime>();
+
         List<TeDoen> Datetaak = new List<TeDoen>();
-        int teller = 0;
-        int index = 0;
+
+       
         public Form1()
         {
             InitializeComponent();

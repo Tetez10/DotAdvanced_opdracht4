@@ -15,10 +15,15 @@ namespace Oef1
             get { _volgnummer++; return _volgnummer; }
             set { _volgnummer = value; }
         }
-        private int _volgnummer = 0;
+        
         public DateTime? Tijdstip = null;
+
+        private int _volgnummer = 0;
+
         public string Titel { get; set; }
+
         public string[] Informatie { get; set; }
+
         public TeDoen()
         {
 
@@ -47,11 +52,11 @@ namespace Oef1
 
             if (Tijdstip == null)
             {
-                return "id" + id + " title : " + Titel + " informatie : " + text;
+                return "id is : " + id + " title is  : " + Titel + " informatie  : " + text;
             }
             else
             {
-                return "id" + id + "  tijdstip: " + Tijdstip + "title : " + Titel + " informatie : " + text;
+                return "id is " + id + "  tijdstip is : " + Tijdstip + "title is  : " + Titel + " informatie : " + text;
             }
 
 
